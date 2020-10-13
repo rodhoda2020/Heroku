@@ -18,11 +18,7 @@ app.secret_key = 'jose'
 api = Api(app)
 
 
-@app.before_first_request
-# This is the decorator that will run the method below it
-# before the first request.
-def create_tables():
-    db.create_all()
+
 
 jwt = JWT(app, authenticate, identity)
 
