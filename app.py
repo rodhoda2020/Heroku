@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask
 from flask_restful import Api
 from flask_jwt import JWT
@@ -12,7 +14,9 @@ from resources.store import Store, StoreList
 
 app = Flask(__name__)
 # SQLAlchemy will read the data.db file
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
+# The os.environ.get() will first try to look for the first variable, and if it fails, it goes to
+# the second variable and find it
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///data.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = 'jose'
 api = Api(app)
